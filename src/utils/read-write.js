@@ -156,6 +156,7 @@ export function assign(obj, exp, value, autoCreate) {
  * () => {}       | 'function'
  * document.body  | 'element'
  * <svg />        | 'element'
+ * new Date()     | 'date'
  *
  * @returns {string} 类型名称
  */
