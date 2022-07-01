@@ -74,7 +74,7 @@ export function toggleClassName(dom, className) {
 /**
  * 提取 meta 标签的内容值
  * 
- * @param {string} name - meta 标签的 name 属性值
+ * @param {string} name - meta 标签的 name 或 http-equiv 的属性值
  * 
  * @returns {string}
  */
@@ -83,7 +83,7 @@ export function extractMetaContent(name) {
 
   if (metas[name]) return metas[name].content;
 
-  const meta = document.querySelector(`meta[name=${metaName}]`);
+  const meta = document.querySelector(`meta[name=${name}]`) || document.querySelector(`meta[http-equiv=${name}]`);
 
   if (meta) return meta.getAttribute('content');
 }
