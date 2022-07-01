@@ -1,0 +1,39 @@
+{
+  "name": "ego",
+  "version": "1.0.0",
+  "description": "Javascript tools",
+  "main": "src/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "scripts": {
+    "test": "mocha tests/**/*.js --require babel-register --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZhongyiChen/ego.git"
+  },
+  "keywords": [
+    "ego",
+    "egoJs",
+    "javascript",
+    "javascript tools"
+  ],
+  "author": "ego",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZhongyiChen/ego/issues"
+  },
+  "homepage": "https://github.com/ZhongyiChen/ego#readme",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0"
+  }
+}
