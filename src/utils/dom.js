@@ -3,6 +3,9 @@
  * 
  * 与操作 DOM 相关的工具函数。该类型工具函数很可能有副作用。
  */
+import {
+  whatTypeIs,
+} from './read-write';
 
 /**
  * 判断当前浏览器 DOM 是否支持 classList 属性
@@ -140,4 +143,29 @@ export function convertAbsolutePath(path) {
   img.src = path;
 
   return img.src;
+}
+
+/**
+ * 编码 SVG
+ * 
+ * 用于赋值图片 src 或样式 url()
+ * 
+ * @param {string|Element} svg - SVG 标签字符串或元素
+ * 
+ * @returns {string}
+ */
+export function encodeSvg(svg) {
+  const str = ({
+    string: svg,
+    element: svg.outerHTML,
+  })[whatTypeIs(svg)];
+
+  return 'data:image/svg+xml,' +  
+    str.replace(/"/g, "'")
+      .replace(/%/g, '%25')
+      .replace(/#/g, '%23')
+      .replace(/{/g, '%7B')
+      .replace(/}/g, '%7D')
+      .replace(/</g, '%3C')
+      .replace(/>/g, '%3E')
 }

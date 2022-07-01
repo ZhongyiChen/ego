@@ -155,6 +155,7 @@ export function assign(obj, exp, value, autoCreate) {
  * true           | 'boolean'
  * () => {}       | 'function'
  * document.body  | 'element'
+ * <svg />        | 'element'
  *
  * @returns {string} 类型名称
  */
@@ -169,7 +170,7 @@ export function whatTypeIs(v) {
     .slice(8)
     .slice(0, -1)
 
-  if (/HTML[a-zA-Z]+Element/.test(str)) return 'element'
+  if (/(HTML|SVG)[a-zA-Z]+Element/.test(str)) return 'element'
 
   return str.toLowerCase()
 }
