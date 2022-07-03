@@ -3,6 +3,13 @@
  * 
  * 线性代数(矩阵)的生成与计算
  */
+import {
+  det,
+} from '../utils/number';
+import {
+  sequence,
+  arrangement,
+} from '../utils/array';
 
 /**
  * @typedef {[number]} Row - 行
@@ -98,6 +105,20 @@ export class Matrix {
     }
   }
   /**
+   * 返回坐标为 (x, y) 的元素
+   * 
+   * @param {number} x - 第 X 行，从 1 算起
+   * @param {number} y - 第 Y 列，从 1 算起
+   * 
+   * @returns {number}
+   */
+  getItem(x, y) {
+    x = x - 1;
+    y = y - 1;
+
+    return this._matrix[x][y]
+  }
+  /**
    * 计算出方阵的结果
    * 
    * @returns {number}
@@ -106,5 +127,17 @@ export class Matrix {
     if (this._cols !== this._rows) {
       throw new Error('非方阵不能计算结果');
     }
+    /** xs 意为 x 的复数 */
+    const xs = sequence(1, this._rows);
+
+    return arrangement(xs)
+      .map(ys => {
+        const a = ys.reduce((acc, y, index) => {
+          return acc * this.getItem(xs[index], y);
+        }, 1);
+
+        return Math.pow(-1, det(ys)) * a;
+      })
+      .reduce((acc, n) => acc + n, 0)
   }
 }
