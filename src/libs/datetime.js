@@ -76,6 +76,10 @@ export class EgoDate {
       this._date = new Date(date)
       return this
     }
+    if (!date) {
+      this._date = new Date()
+      return this
+    }
     if (!pattern) {
       this._date = new Date(date)
       return this
@@ -116,5 +120,131 @@ export class EgoDate {
 
       return fn(this._date, $0.length)
     })
+  }
+}
+
+/**
+ * 完全版 EgoDate
+ * 
+ * @description 如果需要对 datetime 进行时间设置或者获取某个时间单位，则应使用完全版。
+ */
+export class FullEgoDate extends EgoDate {
+  /**
+   * 构造函数
+   * 
+   * @param {number|string|Date} date 日期字符串
+   * @param {string} [pattern] 日期格式
+   */
+  constructor(date, pattern) {
+    super(date, pattern)
+  }
+  /**
+   * 获取
+   */
+  getFullYear() {
+    return this._date.getFullYear();
+  }
+  getMonth() {
+    return this._date.getMonth();
+  }
+  getDate() {
+    return this._date.getDate();
+  }
+  getDay() {
+    return this._date.getDay();
+  }
+  getHours() {
+    return this._date.getHours();
+  }
+  getMinutes() {
+    return this._date.getMinutes();
+  }
+  getMilliseconds() {
+    return this._date.getMilliseconds();
+  }
+  getTime() {
+    return this._date.getTime();
+  }
+  getYear() {
+    return this._date.getYear();
+  }
+  /**
+   * 设置
+   */
+  setFullYear(num) {
+    this._date.setFullYear(num);
+    return this;
+  }
+  setMonth(num) {
+    this._date.setMonth(num);
+    return this;
+  }
+  setDate(num) {
+    this._date.setDate(num);
+    return this;
+  }
+  setHours(num) {
+    this._date.setHours(num);
+    return this;
+  }
+  setMinutes(num) {
+    this._date.setMinutes(num);
+    return this;
+  }
+  setMilliseconds(num) {
+    this._date.setMilliseconds(num);
+    return this;
+  }
+  setTime(num) {
+    this._date.setTime(num);
+    return this;
+  }
+  setYear(num) {
+    this._date.setYear(num);
+    return this;
+  }
+  /**
+   * 获取当月的最后一天
+   * 
+   * @returns {number}
+   */
+  getLastDateOfCurMonth() {
+    const YYYY = this._date.getFullYear();
+    const MM = this._date.getMonth() + 1;
+    
+    return new Date(YYYY, MM, 0).getDate();
+  }
+  /**
+   * 获取当月第一天是周几
+   * 
+   * @returns {number}
+   */
+  getFirstDayOfCurMonth() {
+    const YYYY = this._date.getFullYear();
+    const MM = this._date.getMonth();
+    
+    return new Date(YYYY, MM, 1).getDay();
+  }
+  /**
+   * 获取当月最后一天是周几
+   * 
+   * @returns {number}
+   */
+  getLastDayOfCurMonth() {
+    const YYYY = this._date.getFullYear();
+    const MM = this._date.getMonth() + 1;
+    
+    return new Date(YYYY, MM, 0).getDay();
+  }
+  /**
+   * 获取上个月的最后一天
+   * 
+   * @returns {number}
+   */
+  getLastDateOfLastMonth() {
+    const YYYY = this._date.getFullYear();
+    const MM = this._date.getMonth();
+    
+    return new Date(YYYY, MM, 0).getDate();
   }
 }
