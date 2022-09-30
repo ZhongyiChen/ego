@@ -111,8 +111,21 @@ export function extractTextContent(html) {
 
   div.innerHTML = html;
 
-  return div.textContent;
+  const result = div.innerText || div.textContent;
+
+  div = null;
+
+  return result;
 }
+
+/**
+ * HTML 解码
+ * 
+ * @param {string} encodedHtml - 被编码后的字符串
+ * 
+ * @returns {string} - 解码后的字符串
+ */
+export const decode = extractTextContent;
 
 /**
  * 把相对路径转换为绝对路径(基于当前 location 的所在目录)
@@ -134,15 +147,22 @@ export function extractTextContent(html) {
  *  input: ''
  * output: 'https://chenzhongyi.net/ego/hello.html'
  * ---------------------------
+ *  input: './hello.png'
+ * output: 'https://chenzhongyi.net/ego/hello.png'
+ * ---------------------------
  * 
  * @returns {string}
  */
 export function convertAbsolutePath(path) {
-  const img = new Image();
+  let anchor = document.createElement('a');
 
-  img.src = path;
+  anchor.href = path;
 
-  return img.src;
+  const result = anchor.href;
+
+  anchor = null;
+
+  return result;
 }
 
 /**
