@@ -45,7 +45,7 @@ export function sequence(init = 0, count = 0, itor = stepping) {
 /**
  * 排列
  * 
- * @param {[*]} values - 一维数组
+ * @param {[*]} values - 一维数组。由于数组元素是可重复的，因此唯一性由外部自行保证。
  * 
  * @example
  * ---------------------------
@@ -84,11 +84,18 @@ export function arrangement(values) {
 /**
  * 组合
  * 
- * @param {[*]} values - 一维数组
- * @param {number} count - 每组个数
+ * @param {[*]} values - 一维数组。由于数组元素是可重复的，因此唯一性由外部自行保证。
+ * @param {number} count - 组合个数
  * 
  * @returns {[[*]]} - 枚举所得的所有组合方式
  */
 export function combination(values, count) {
+  if (!values) return [];
+  if (1 === values.length) return [[values]];
 
+  const arr = [];
+
+  // TODO
+
+  return arr;
 }
