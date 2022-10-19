@@ -3,9 +3,6 @@
  * 
  * 与数组操作相关的工具函数。例如生成某个数组、操作某个数组、计算某个数组等。
  */
-import {
-  whatTypeIs,
-} from './read-write';
 
 /**
  * 步进
@@ -121,7 +118,7 @@ export function combination(values, count) {
  * @returns {[*]} - 一维数组。其中 * 不可以是数组
  */
 export function traverse(values) {
-  if ('array' !== whatTypeIs(values)) return [values];
+  if (!Array.isArray(values)) return [values];
 
   let arr = [];
   let brr = [
@@ -132,7 +129,7 @@ export function traverse(values) {
   while (brr && brr.length) {
     tmp = brr.shift();
 
-    if ('array' !== whatTypeIs(tmp)) {
+    if (!Array.isArray(tmp)) {
       arr.push(tmp);
       continue;
     }
