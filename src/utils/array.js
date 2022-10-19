@@ -3,6 +3,9 @@
  * 
  * 与数组操作相关的工具函数。例如生成某个数组、操作某个数组、计算某个数组等。
  */
+import {
+  whatTypeIs,
+} from './read-write';
 
 /**
  * 步进
@@ -99,3 +102,51 @@ export function combination(values, count) {
 
   return arr;
 }
+
+
+/**
+ * 遍历
+ * 
+ * @param {[*]} values - N 维数组。其中 * 可以是数组
+ * 
+ * @example
+ * ---------------------------
+ * input:  [1, [2, [3, 4], 5], 6, [7, 8, [9]]]
+ * output: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+ * ---------------------------
+ * input:  [1, [2, [3, [4, [5, [6]]]]]]
+ * output: [1, 2, 3, 4, 5, 6]
+ * ---------------------------
+ * 
+ * @returns {[*]} - 一维数组。其中 * 不可以是数组
+ */
+export function traverse(values) {
+  if ('array' !== whatTypeIs(values)) return [values];
+
+  let arr = [];
+  let brr = [
+    ...values
+  ];
+  let tmp = null;
+
+  while (brr && brr.length) {
+    tmp = brr.shift();
+
+    if ('array' !== whatTypeIs(tmp)) {
+      arr.push(tmp);
+      continue;
+    }
+    brr = tmp.concat(brr);
+  }
+
+  return arr;
+}
+
+/**
+ * 熨平
+ * 
+ * @param {[*]} values - N 维数组。其中 * 可以是数组
+ * 
+ * @returns {[*]} - 一维数组。其中 * 不可以是数组
+ */
+export const flatten = traverse;
