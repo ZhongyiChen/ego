@@ -13,6 +13,11 @@ import {
 const HAS_CLASSLIST = document && 'classList' in document.documentElement;
 
 /**
+ * NOOP
+ */
+function noop() {}
+
+/**
  * 检查某个元素是否含有某个类名
  *
  * @param {Element} dom 元素
@@ -92,6 +97,21 @@ export function extractMetaContent(name) {
 }
 
 /**
+ * 获取 dom 元素中 data-* 属性的数据
+ * 
+ * @param {Element} dom - 元素
+ * @param {string} name - data-*
+ * 
+ * @returns {string}
+ */
+export function extractDataContent(dom, name) {
+  if (!dom) return void 0;
+  if (dom.dataset) return dom.dataset[name];
+
+  return dom.getAttribute(`data-${name}`);
+}
+
+/**
  * 提取标签树内的文本
  * 
  * @param {string} html - DOM 片段，即某个合法的标签树
@@ -120,6 +140,12 @@ export function extractTextContent(html) {
 
 /**
  * HTML 解码
+ * 
+ * 比较典型的是被编码后的字符串含有：
+ * | 编码 | 解码 |
+ * --------------
+ * | &lt; | <   |
+ * | &gt; | >   |
  * 
  * @param {string} encodedHtml - 被编码后的字符串
  * 
@@ -188,4 +214,92 @@ export function encodeSvg(svg) {
       .replace(/}/g, '%7D')
       .replace(/</g, '%3C')
       .replace(/>/g, '%3E')
+}
+
+/**
+ * 加载脚本地址
+ * 
+ * @param {string} src - 脚本地址
+ * @param {Function} resolve - 加载完成的回调
+ * @param {Function} reject - 加载失败的回调
+ */
+export function loadScript(src, resolve = noop, reject = noop) {
+  if (!src) {
+    reject(new Error('src is required'));
+    return;
+  }
+  if (document.getElementById(src)) {
+    resolve();
+    return;
+  }
+
+  const script = document.createElement('script');
+
+  script.type = 'text/javascript';
+  script.onerror = (err) => {
+    reject(err);
+  }
+  if (script.readyState) {
+    // IE
+    script.onreadystatechange = (event) => {
+      if (script.readyState === 'loaded' || script.readyState === 'complete') {
+        script.onreadystatechange = null;
+        resolve(event);
+      }
+    };
+  } else {
+    script.onload = (event) => {
+      resolve(event);
+    };
+  }
+  script.id = src;
+  script.src = src;
+  document.head.appendChild(script);
+}
+
+/**
+ * 加载脚本地址 Promise 化
+ * 
+ * @param {string} src - 脚本地址
+ * 
+ * @returns {Promise<Event>}
+ */
+export function loadScriptPromisify(src) {
+  return new Promise((resolve, reject) => loadScript(src, resolve, reject));
+}
+
+/**
+ * 加载单张图片
+ * 
+ * @param {string} src - 图片地址
+ * @param {Function} resolve - 加载完成的回调
+ * @param {Function} reject - 加载失败的回调
+ * 
+ * @returns {HTMLImageElement} 图片
+ */
+export function loadImg(src, resolve = noop, reject = noop) {
+  const img = new Image();
+
+  img.src = src;
+
+  if (img.complete) {
+    resolve(img);
+    return img;
+  }
+
+  img.addEventListener('error', () => reject(new Error(`Cannot find image with ${src}`)));
+  img.addEventListener('load', () => resolve(img));
+
+  return img;
+}
+
+/**
+ * 加载单张图片 Promise 化
+ * 
+ * @param {string} src 图片地址
+ * 
+ * @returns {Promise<Image>}
+ */
+export function loadImgPromisify(src) {
+  return new Promise((resolve, reject) => loadImg(src, resolve, reject));
 }
