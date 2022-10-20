@@ -3,6 +3,9 @@
  * 
  * 与数组操作相关的工具函数。例如生成某个数组、操作某个数组、计算某个数组等。
  */
+import {
+  clamp,
+} from './number';
 
 /**
  * 步进
@@ -82,22 +85,117 @@ export function arrangement(values) {
 }
 
 /**
+ * 构建数组的拓扑图，返回一个对象，键为下标，值为二次数组，二次数组的每项均为：[下一个下标，权重]。其中权重 N 表示被指向的元素最多还可以指向 N 个节点。
+ * 
+ * @param {[*]} values - 一维数组。
+ * 
+ * @example
+ * ---------------------------
+ * input:  ['a', 'b', 'c', 'd']
+ * output: {
+ *           0: [
+ *                [1, 2],
+ *                [2, 1],
+ *                [3, 0],
+ *              ],
+ *           1: [
+ *                [2, 1],
+ *                [3, 0],
+ *              ],
+ *           2: [
+ *                [3, 0],
+ *              ],
+ *           3: [
+ *              ],
+ *         }
+ * ---------------------------
+ * 
+ * @returns {{
+ *   index: [index: number, weight: number]
+ * }}
+ */
+function topology(values) {
+  return values
+    .map((v, index) => index)
+    .reduce((acc, v, i, a) => {
+      const brr = a.slice(i + 1);
+      acc[v] = brr.map((item, j) => ([item, brr.length - j - 1]));
+      return acc;
+    }, {});
+}
+
+/**
  * 组合
  * 
  * @param {[*]} values - 一维数组。由于数组元素是可重复的，因此唯一性由外部自行保证。
- * @param {number} count - 组合个数
+ * @param {number} [count] - 组合个数
+ * 
+ * @example
+ * ---------------------------
+ * input:  [1, 2, 3]
+ * output: [
+ *           [1],
+ *           [2],
+ *           [3],
+ *           [1, 2],
+ *           [1, 3],
+ *           [2, 3],
+ *           [1, 2, 3],
+ *         ]
+ * ---------------------------
+ * input:  [1, 2, 3], 2
+ * output: [
+ *           [1, 2],
+ *           [1, 3],
+ *           [2, 3],
+ *         ]
+ * ---------------------------
  * 
  * @returns {[[*]]} - 枚举所得的所有组合方式
  */
 export function combination(values, count) {
   if (!values) return [];
+  if ('number' === typeof count && count !== clamp(count, 1, values.length)) return [];
   if (1 === values.length) return [[values]];
 
   const arr = [];
+  const len = values.length;
+  const min = count || 1;
+  const max = count || len;
+  const topo = topology(values);
+  const keys = Object.keys(topo)
+    .map(item => +item);
 
-  // TODO
+  for (let n = min; n <= max; n++) {
+    if (1 === n) {
+      arr.push(...(keys.map(k => [k])));
+      continue;
+    }
+    let tmp = keys.reduce((acc, cur) => {
+      acc = acc.concat(
+        topo[cur]
+          .filter(item => n <= item[1] + 2)
+          .map(item => [cur, item[0]])
+      ) 
+      return acc;
+    }, []);
+    while (tmp[0] && tmp[0].length < n) {
+      tmp = tmp.reduce((brr, bur) => {
+        brr = brr.concat(
+          topo[bur[bur.length - 1]]
+            .filter(item => n <= (item[1] + bur.length + 1))
+            .map(item => [...bur, item[0]])
+        )
+        return brr;
+      }, []);
+    }
+    if (tmp && tmp.length) {
+      arr.push(...tmp)
+    }
+  }
 
-  return arr;
+  return arr
+    .map(indexs => indexs.map(index => values[index]));
 }
 
 
