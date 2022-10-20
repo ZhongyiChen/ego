@@ -60,8 +60,8 @@ function normalizeKeyPath(key = '') {
  * @returns {*} 根据键名获得的值
  */
 export function parse(obj, exp) {
-  if (!obj || typeof obj === 'number') {
-    return obj
+  if (obj == void 0) {
+    return void 0
   }
 
   const key = normalizeKeyPath(exp)
@@ -75,7 +75,7 @@ export function parse(obj, exp) {
 
   let d = -1
 
-  while (++d < l && obj != null) {
+  while (++d < l && obj !== void 0) {
     obj = obj[paths[d]]
   }
 
