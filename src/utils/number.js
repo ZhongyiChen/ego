@@ -14,7 +14,7 @@
  * input: 3
  * output: 1
  * ---------------------------
- * input: -PI
+ * input: -Math.PI
  * output: -1
  * ---------------------------
  * input: 0

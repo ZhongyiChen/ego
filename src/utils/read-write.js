@@ -93,16 +93,18 @@ export function parse(obj, exp) {
  * @returns {boolean} 是否赋值成功
  */
 export function assign(obj, exp, value, autoCreate) {
-  if (!obj) {
-    console.error(`${obj} could not be assigned`)
-    return false
-  }
   if ([
+    'undefined',
     'number',
     'string',
     'boolean',
+    'symbol',
   ].includes(typeof obj)) {
-    console.error(`${obj} could not be assigned`)
+    // console.error(`obj of type ${typeof obj} could not be assigned`)
+    return false
+  }
+  if (!obj) {
+    // console.error(`${obj} could not be assigned`)
     return false
   }
 
