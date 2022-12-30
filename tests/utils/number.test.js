@@ -5,6 +5,7 @@ import {
   lerp,
   det,
   factorial,
+  fix,
 } from '../../src/utils/number';
 
 const expect = chai.expect
@@ -73,5 +74,24 @@ describe('number: factorial', () => {
       .should.equal(6);
     factorial(10)
       .should.equal(3628800);
+  })
+})
+
+describe('number: fix', () => {
+  it('keep 2 decimal places by default', () => {
+    fix(3.1415926)
+      .should.equal(3.14);
+    fix(34.5678)
+      .should.equal(34.57);
+    fix(99.99999)
+      .should.equal(100);
+  })
+  it('keep the decimal places you want', () => {
+    fix(3.1415926, 4)
+      .should.equal(3.1416);
+    fix(34.5678, 1)
+      .should.equal(34.6);
+    fix(99.99999, 5)
+      .should.equal(99.99999);
   })
 })
