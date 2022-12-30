@@ -105,3 +105,15 @@ export function factorial(value) {
 
   return result;
 }
+
+/**
+ * 保留至多 n 位小数
+ * 
+ * @param {number} value - 小数
+ * @param {number} n - 自然数
+ * 
+ * @returns {number}
+ */
+export function fix(value, n = 2) {
+  return +value.toFixed(n);
+}
