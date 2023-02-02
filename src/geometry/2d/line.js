@@ -201,9 +201,25 @@ export class Line {
    * @returns {number}
    */
   get k() {
-    if (x1 === x2) return NaN;
+    if (this._k === this._k) return this._k;
 
-    return (y2 - y1) / (x2 - x1);
+    if (LineType.POINT_POINT === this.type) {
+      if (this.x1 === this.x2) return NaN;
+
+      this._k = (this.y2 - this.y1) / (this.x2 - this.x1);
+      
+      return this._k;
+    }
+    if (LineType.GENERAL === this.type) {
+      this._k = -(this._A / this._B);
+
+      return this._k;
+    }
+    if (LineType.INTERCEPT_INTERCEPT === this.type) {
+      this._k = -(this._b / this._a);
+
+      return this._k;
+    }
   }
   /**
    * 与 x 轴的坡度(同 k)。
