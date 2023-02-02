@@ -238,6 +238,47 @@ export class Line {
     return this.k;
   }
   /**
+   * x 轴上的截距。
+   * 
+   * @returns {number}
+   */
+  get a() {
+    if (this._a === this._a) return this._a;
+
+    if (LineType.POINT_POINT === this.type) {
+      this._a = this.x1 + (
+        (this.x2 - this.x1) * (0 - this.y1) / (this.y2 - this.y1)
+      );
+
+      return this._a;
+    }
+    if (LineType.GENERAL === this.type) {
+      this._a = -(this._C / this._A);
+
+      return this._a;
+    }
+    if (LineType.SLOPE_INTERCEPT === this.type) {
+      this._a = (0 - this._b) / this._k;
+
+      return this._a;
+    }
+    if (LineType.POINT_SLOPE === this.type) {
+      this._a = this.x1 + (
+        (0 - this.y1) / this._k
+      );
+
+      return this._a;
+    }
+  }
+  /**
+   * y 轴上的截距。
+   * 
+   * @returns {number}
+   */
+  get b() {
+    if (this._b === this._b) return this._b;
+  }
+  /**
    * 通过横坐标获取直线上的某一点
    * 
    * @param {number} x - 该点的横坐标
