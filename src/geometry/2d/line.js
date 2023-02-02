@@ -51,11 +51,11 @@ export class Line {
    * @param {LineConfig} [config] - 非两点式的配置
    */
   constructor(x1, y1, x2, y2, config) {
-    this.type = NaN;
     this.x1 = NaN;
     this.y1 = NaN;
     this.x2 = NaN;
     this.y2 = NaN;
+    this._type = NaN;
     this._k = NaN;
     this._a = NaN;
     this._b = NaN;
@@ -65,7 +65,7 @@ export class Line {
 
     if (!config || LineType.POINT_POINT === config.type) {
       if (x1 === x2 && y1 === y2) throw new Error('need two different points!');
-      this.type = LineType.POINT_POINT;
+      this._type = LineType.POINT_POINT;
       this.x1 = x1;
       this.y1 = y1;
       this.x2 = x2;
@@ -73,27 +73,27 @@ export class Line {
       return this;
     }
     if (LineType.GENERAL === config.type) {
-      this.type = LineType.GENERAL;
+      this._type = LineType.GENERAL;
       this._A = config.A;
       this._B = config.B;
       this._C = config.C;
       return this;
     }
     if (LineType.SLOPE_INTERCEPT === config.type) {
-      this.type = LineType.SLOPE_INTERCEPT;
+      this._type = LineType.SLOPE_INTERCEPT;
       this._k = config.k;
       this._b = config.b;
       return this;
     }
     if (LineType.POINT_SLOPE === config.type) {
-      this.type = LineType.POINT_SLOPE;
+      this._type = LineType.POINT_SLOPE;
       this.x1 = config.x1;
       this.y1 = config.y1;
       this._k = config.k;
       return this;
     }
     if (LineType.INTERCEPT_INTERCEPT === config.type) {
-      this.type = LineType.INTERCEPT_INTERCEPT;
+      this._type = LineType.INTERCEPT_INTERCEPT;
       this._a = config.a;
       this._b = config.b;
       return this;
@@ -181,6 +181,14 @@ export class Line {
       B,
       C,
     });
+  }
+  /**
+   * 本直线的公式类型
+   * 
+   * @return {LineType}
+   */
+  get type() {
+    return this._type;
   }
   /**
    * 长度值(作为线段看待时)
