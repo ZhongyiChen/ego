@@ -1,6 +1,6 @@
 {
-  "name": "ego",
-  "version": "1.0.0",
+  "name": "ego-utils",
+  "version": "0.0.1",
   "description": "Javascript tools",
   "main": "src/index.js",
   "directories": {
@@ -20,7 +20,7 @@
   },
   "keywords": [
     "ego",
-    "egoJs",
+    "ego-utils",
     "javascript",
     "javascript tools"
   ],
