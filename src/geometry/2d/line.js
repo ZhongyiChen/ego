@@ -277,6 +277,26 @@ export class Line {
    */
   get b() {
     if (this._b === this._b) return this._b;
+
+    if (LineType.POINT_POINT === this.type) {
+      this._b = this.y1 + (
+        (this.y2 - this.y1) * (0 - this.x1) / (this.x2 - this.x1)
+      );
+
+      return this._b;
+    }
+    if (LineType.GENERAL === this.type) {
+      this._b = -(this._C / this._B);
+
+      return this._b;
+    }
+    if (LineType.POINT_SLOPE === this.type) {
+      this._b = this.y1 + (
+        this._k * (0 - this.x1)
+      );
+
+      return this._b;
+    }
   }
   /**
    * 通过横坐标获取直线上的某一点
