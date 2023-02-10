@@ -299,6 +299,93 @@ export class Line {
     }
   }
   /**
+   * 一般式中 x 的系数。
+   * 
+   * @returns {number}
+   */
+  get A() {
+    if (this._A === this._A) return this._A;
+
+    if (LineType.POINT_POINT === this.type) {
+      this._A = this.y2 - this.y1;
+      
+      return this._A;
+    }
+    if (LineType.SLOPE_INTERCEPT === this.type) {
+      this._A = this._k;
+      
+      return this._A;
+    }
+    if (LineType.POINT_SLOPE === this.type) {
+      this._A = this._k;
+      
+      return this._A;
+    }
+    if (LineType.INTERCEPT_INTERCEPT === this.type) {
+      this._A = this._b;
+      
+      return this._A;
+    }
+  }
+  /**
+   * 一般式中 y 的系数。
+   * 
+   * @returns {number}
+   */
+  get B() {
+    if (this._B === this._B) return this._B;
+
+    if (LineType.POINT_POINT === this.type) {
+      this._B = this.x1 - this.x2;
+
+      return this._B;
+    }
+    if (LineType.SLOPE_INTERCEPT === this.type) {
+      this._B = -1;
+      
+      return this._B;
+    }
+    if (LineType.POINT_SLOPE === this.type) {
+      this._B = -1;
+      
+      return this._B;
+    }
+    if (LineType.INTERCEPT_INTERCEPT === this.type) {
+      this._B = this._a;
+      
+      return this._B;
+    }
+  }
+  /**
+   * 一般式中的常数。
+   * 
+   * @returns {number}
+   */
+  get C() {
+    if (this._C === this._C) return this._C;
+
+    if (LineType.POINT_POINT === this.type) {
+      this._C = this.y1 * (this.x2 - this.x1) - this.x1 * (this.y2 - this.y1);
+
+      return this._C;
+    }
+    if (LineType.SLOPE_INTERCEPT === this.type) {
+      this._C = this._b;
+      
+      return this._C;
+    }
+    if (LineType.POINT_SLOPE === this.type) {
+      this._C = this.y1 - this._k * this.x1;
+      
+      return this._C;
+    }
+    if (LineType.INTERCEPT_INTERCEPT === this.type) {
+      this._C = -(this._a * this._b);
+      
+      return this._C;
+    }
+  }
+  /**
    * 通过横坐标获取直线上的某一点
    * 
    * @param {number} x - 该点的横坐标

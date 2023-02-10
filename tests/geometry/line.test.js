@@ -58,5 +58,30 @@ describe('Line', () => {
   })
   it('can get the real b', () => {
     expect(line_pp.b).to.equal(4);
+    expect(line_ge.b).to.equal(-4);
+    expect(line_si.b).to.equal(2);
+    expect(line_ps.b).to.equal(6);
+    expect(line_ii.b).to.equal(4);
+  })
+  it('can get the real A', () => {
+    expect(line_pp.A).to.equal(8);
+    expect(line_ge.A).to.equal(3);
+    expect(line_si.A).to.equal(4/3);
+    expect(line_ps.A).to.equal(-1);
+    expect(line_ii.A).to.equal(4);
+  })
+  it('can get the real B', () => {
+    expect(line_pp.B).to.equal(-6);
+    expect(line_ge.B).to.equal(1);
+    expect(line_si.B).to.equal(-1);
+    expect(line_ps.B).to.equal(-1);
+    expect(line_ii.B).to.equal(-2);
+  })
+  it('can get the real C', () => {
+    expect(line_pp.C).to.equal(24);
+    expect(line_ge.C).to.equal(4);
+    expect(line_si.C).to.equal(2);
+    expect(line_ps.C).to.equal(6);
+    expect(line_ii.C).to.equal(8);
   })
 })
