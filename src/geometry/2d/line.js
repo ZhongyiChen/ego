@@ -386,6 +386,42 @@ export class Line {
     }
   }
   /**
+   * 通过横坐标获取直线上的 y
+   * 
+   * @param {number} x - 该点的横坐标
+   * 
+   * @returns {number}
+   */
+  getY(x) {
+    const {
+      A,
+      B,
+      C,
+    } = this;
+
+    if (!B) return NaN;
+
+    return -(A * x + C) / B;
+  }
+  /**
+   * 通过纵坐标获取直线上的 x
+   * 
+   * @param {number} y - 该点的横坐标
+   * 
+   * @returns {number}
+   */
+  getX(y) {
+    const {
+      A,
+      B,
+      C,
+    } = this;
+
+    if (!A) return NaN;
+
+    return -(B * y + C) / A;
+  }
+  /**
    * 通过横坐标获取直线上的某一点
    * 
    * @param {number} x - 该点的横坐标
@@ -393,7 +429,10 @@ export class Line {
    * @returns {Point}
    */
   getPointByX(x) {
-
+    return {
+      x,
+      y: this.getY(x),
+    }
   }
   /**
    * 通过纵坐标获取直线上的某一点
@@ -403,6 +442,9 @@ export class Line {
    * @returns {Point}
    */
   getPointByX(y) {
-    
+    return {
+      x: this.getX(y),
+      y,
+    }
   }
 }

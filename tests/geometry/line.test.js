@@ -84,4 +84,18 @@ describe('Line', () => {
     expect(line_ps.C).to.equal(6);
     expect(line_ii.C).to.equal(8);
   })
+  it('can get y while it receive x', () => {
+    expect(line_pp.getY(12)).to.equal(20);
+    expect(line_ge.getY(12)).to.equal(-40);
+    expect(line_si.getY(12)).to.equal(18);
+    expect(line_ps.getY(12)).to.equal(-6);
+    expect(line_ii.getY(12)).to.equal(28);
+  })
+  it('can get x while it receive y', () => {
+    expect(line_pp.getX(20)).to.equal(12);
+    expect(line_ge.getX(-40)).to.equal(12);
+    expect(line_si.getX(18)).to.equal(12);
+    expect(line_ps.getX(-6)).to.equal(12);
+    expect(line_ii.getX(28)).to.equal(12);
+  })
 })
