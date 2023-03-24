@@ -1,7 +1,7 @@
 import chai from 'chai';
 import {
   Line,
-} from '../../src/geometry/2d/line';
+} from '../../../src/geometry/2d/line';
 
 const expect = chai.expect
 

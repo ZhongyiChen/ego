@@ -2,7 +2,7 @@ import chai from 'chai';
 import {
   Vector2D,
   VectorII,
-} from '../../src/libs/vector';
+} from '../../../src/geometry/2d/vector';
 
 const expect = chai.expect
 
