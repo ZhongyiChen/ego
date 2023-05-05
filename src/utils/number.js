@@ -48,6 +48,37 @@ export function clamp(value, min, max) {
 }
 
 /**
+ * 霍纳法则计算多项式的值
+ * 
+ * @param {[number]} coefficients - 多项式系数
+ * @param {number} x - 多项式 x 的值
+ * 
+ * @example
+ * ---------------------------
+ * input: [2, -1, -3, 1, -5], 3
+ * output: 106
+ * ---------------------------
+ * 
+ * 解析
+ * 
+ * 转换0: f(x) = 2x⁴ - x³ - 3x² + x - 5
+ * 转换1: f(x) = x(2x³ - x² - 3x + 1) - 5
+ * 转换2: f(x) = x(x(2x² - x - 3) + 1) - 5
+ * 转换3: f(x) = x(x(x(2x - 1) - 3) + 1) - 5
+ * 转换4: f(x) = x(x(x(x(2) - 1) - 3) + 1) - 5
+ * 
+ * 最后，我们只需要计算 `f(x) = x(x(x(2x - 1) - 3) + 1) - 5` 即可
+ *
+ * @returns {number}
+ */
+export function horner(coefficients, x) {
+  return coefficients.slice(1)
+    .reduce((acc, co) => {
+      return x * acc + co;
+    }, coefficients[0]);
+}
+
+/**
  * 插值
  * 
  * @param {number} from - 起始数值
@@ -59,7 +90,8 @@ export function clamp(value, min, max) {
 export function lerp(from, to, rate) {
   const r = clamp(rate, 0, 1);
 
-  return (1 - r) * from + r * to;
+  // (1 - r) * from + r * to
+  return r * (to - from) + from;
 }
 
 /**
@@ -107,7 +139,7 @@ export function factorial(value) {
 }
 
 /**
- * 保留至多 n 位小数
+ * 保留至多 n 位小数，过程会执行四舍五入
  * 
  * @param {number} value - 小数
  * @param {number} n - 自然数

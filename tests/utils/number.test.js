@@ -2,6 +2,7 @@ import chai from 'chai';
 import {
   whatSignIs,
   clamp,
+  horner,
   lerp,
   det,
   factorial,
@@ -39,6 +40,15 @@ describe('number: clamp', () => {
       .should.equal(1);
     clamp(10, 1, 10)
       .should.equal(10);
+  })
+})
+
+describe('number: horner', () => {
+  it('caculate polynomial pretty fast', () => {
+    horner([4, 3, 2, 1], 2)
+      .should.equal(49);
+    horner([2, -1, -3, 1, -5], 3)
+      .should.equal(106);
   })
 })
 

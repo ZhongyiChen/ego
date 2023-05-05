@@ -3,6 +3,8 @@
  * 
  * 缓动函数 - 计算一个数值参数随着时间的变化
  * 
+ * 用多项式函数模拟的缓动函数，存在不小的误差，如果需要更为精确的缓动路径，请使用三次贝塞尔函数 @type {import("./bezier.js").cubicBezier}
+ * 
  * @see https://easings.net/
  */
 
