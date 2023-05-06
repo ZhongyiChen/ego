@@ -7,6 +7,7 @@ import {
   det,
   factorial,
   fix,
+  isPrime,
 } from '../../src/utils/number';
 
 const expect = chai.expect
@@ -103,5 +104,28 @@ describe('number: fix', () => {
       .should.equal(34.6);
     fix(99.99999, 5)
       .should.equal(99.99999);
+  })
+})
+
+describe('number: isPrime', () => {
+  it('can judge if a number is prime', () => {
+    isPrime(2)
+      .should.equal(true);
+    isPrime(3)
+      .should.equal(true);
+    isPrime(5)
+      .should.equal(true);
+    isPrime(7)
+      .should.equal(true);
+    isPrime(11)
+      .should.equal(true);
+    isPrime(13)
+      .should.equal(true);
+    isPrime(39)
+      .should.equal(false);
+    isPrime(49993)
+      .should.equal(true);
+    isPrime(49999)
+      .should.equal(true);
   })
 })

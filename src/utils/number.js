@@ -149,3 +149,29 @@ export function factorial(value) {
 export function fix(value, n = 2) {
   return +value.toFixed(n);
 }
+
+/**
+ * 判断某个数是否为素数
+ * 
+ * @param {number} value - 整数
+ * 
+ * @returns {boolean}
+ */
+export function isPrime(value) {
+  // 特殊值直接判断
+  if (2 === value || 3 === value) return true;
+
+  // 不在 6 的倍数两侧的整数，一定不是质数
+  if (5 !== value % 6 && 1 !== value % 6) return false;
+
+  // 一个数若可以进行因式分解，则分解后得到的数中，必有一个小于等于 sqrt(value)
+  const tmp = Math.sqrt(value);
+
+  // 在 6 的倍数两侧的整数，也不一定是质数
+  for (let i = 5; i <= tmp; i += 6) {
+    // 此时 value 已经是 6 的倍数两侧的整数了。如果 value 能被小于其的 6 的倍数两侧的整数所整除的话，则说明 value 不是质数
+    if (0 === value % i || 0 === value % (i + 2)) return false;
+  }
+
+  return true;
+}
