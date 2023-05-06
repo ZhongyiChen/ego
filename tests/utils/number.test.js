@@ -8,6 +8,7 @@ import {
   factorial,
   fix,
   isPrime,
+  primeGreaterThan,
 } from '../../src/utils/number';
 
 const expect = chai.expect
@@ -127,5 +128,32 @@ describe('number: isPrime', () => {
       .should.equal(true);
     isPrime(49999)
       .should.equal(true);
+  })
+})
+
+describe('number: primeGreaterThan', () => {
+  it('can get a smallest prime number bigger than the given number', () => {
+    primeGreaterThan(2)
+      .should.equal(3);
+    primeGreaterThan(3)
+      .should.equal(5);
+    primeGreaterThan(5)
+      .should.equal(7);
+    primeGreaterThan(24)
+      .should.equal(29);
+    primeGreaterThan(30)
+      .should.equal(31);
+    primeGreaterThan(31)
+      .should.equal(37);
+    primeGreaterThan(9967)
+      .should.equal(9973);
+    primeGreaterThan(9973)
+      .should.equal(10007);
+    primeGreaterThan(10000)
+      .should.equal(10007);
+    primeGreaterThan(49957)
+      .should.equal(49991);
+    primeGreaterThan(49994)
+      .should.equal(49999);
   })
 })

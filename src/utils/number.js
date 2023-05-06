@@ -175,3 +175,23 @@ export function isPrime(value) {
 
   return true;
 }
+
+/**
+ * 获取大于某个整数的最小素数
+ * 
+ * @param {number} value - 一个整数
+ * 
+ * @returns {number} 目标素数
+ */
+export function primeGreaterThan(value) {
+  if (2 > value) return 2;
+  if (2 === value) return 3;
+
+  let i = 0 === value % 6 ? value :
+    6 * Math.ceil(value / 6);
+
+  for (;;i += 6) {
+    if (i - 1 > value && isPrime(i - 1)) return i - 1;
+    if (isPrime(i + 1)) return i + 1;
+  }
+}
