@@ -5,7 +5,7 @@
  */
 import {
   clamp,
-} from './number';
+} from '../libs/math';
 
 /**
  * 步进

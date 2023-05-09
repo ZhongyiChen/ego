@@ -5,7 +5,7 @@
  */
 import {
   det,
-} from '../utils/number';
+} from './math';
 import {
   sequence,
   arrangement,

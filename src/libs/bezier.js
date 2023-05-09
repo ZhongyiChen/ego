@@ -12,7 +12,7 @@
 import {
   lerp,
   horner,
-} from '../utils/number';
+} from './math';
 
 /**
  * 二次贝塞尔函数
