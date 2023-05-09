@@ -22,9 +22,15 @@
     "ego",
     "ego-utils",
     "javascript",
-    "javascript tools"
+    "javascript tools",
+    "algorithm",
+    "data structure",
+    "bezier",
+    "geometry",
+    "matrix",
+    "dom"
   ],
-  "author": "ego",
+  "author": "ZhongyiChen (ego@chenzhongyi.net)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ZhongyiChen/ego/issues"
