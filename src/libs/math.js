@@ -95,6 +95,19 @@ export function abs(value) {
 }
 
 /**
+ * 取整(只适用于 32 位数字)
+ * 
+ * @param {number} value - 自然数
+ * 
+ * @returns {number}
+ */
+export function floor(value) {
+  const tmp = value | 0;
+
+  return (value >= 0 || 0 === value - tmp) ? tmp : tmp - 1;
+}
+
+/**
  * 阶乘
  * 
  * @param {number} value - 自然数
