@@ -108,6 +108,28 @@ export function floor(value) {
 }
 
 /**
+ * 开方
+ * 
+ * @param {number} value - 正自然数
+ * 
+ * @returns {number}
+ */
+export function sqrt(value) {
+  if (value < 0) return NaN;
+  if (0 === value || 1 === value) return value;
+
+  let v = value;
+  let last = 0;
+
+  do {
+    last = v;
+    v = (v + value / v) / 2;
+  } while (abs(v - last) >= Number.EPSILON);
+
+  return v;
+}
+
+/**
  * 阶乘
  * 
  * @param {number} value - 自然数
