@@ -84,6 +84,17 @@ export function det(values) {
 }
 
 /**
+ * 绝对值
+ * 
+ * @param {number} value - 实数
+ * 
+ * @returns {number}
+ */
+export function abs(value) {
+  return value < 0 ? -value : value;
+}
+
+/**
  * 阶乘
  * 
  * @param {number} value - 自然数
