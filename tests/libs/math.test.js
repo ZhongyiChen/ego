@@ -4,6 +4,9 @@ import {
   lerp,
   horner,
   det,
+  abs,
+  floor,
+  sqrt,
   factorial,
   isPrime,
 } from '../../src/libs/math';
@@ -57,6 +60,49 @@ describe('number: det', () => {
       .should.equal(1);
     det([1, 3, 5, 7, 9])
       .should.equal(0);
+  })
+})
+
+describe('number: abs', () => {
+  it('get absolute value like Math.abs', () => {
+    abs(Number.MAX_VALUE)
+      .should.equal(Math.abs(Number.MAX_VALUE))
+    abs(-Number.MAX_VALUE)
+      .should.equal(Math.abs(-Number.MAX_VALUE))
+    abs(Number.MIN_VALUE)
+      .should.equal(Math.abs(Number.MIN_VALUE))
+    abs(-Number.MIN_VALUE)
+      .should.equal(Math.abs(-Number.MIN_VALUE))
+    abs(0)
+      .should.equal(Math.abs(0))
+  })
+})
+
+describe('number: floor', () => {
+  it('get floor value like Math.floor', () => {
+    floor(9999.9999)
+      .should.equal(Math.floor(9999.9999))
+    floor(-9999.9999)
+      .should.equal(Math.floor(-9999.9999))
+    floor(.99999999)
+      .should.equal(Math.floor(.99999999))
+    floor(-.99999999)
+      .should.equal(Math.floor(-.99999999))
+    floor(0)
+      .should.equal(Math.floor(0))
+  })
+})
+
+describe('number: sqrt', () => {
+  it('get sqrt value like Math.sqrt', () => {
+    sqrt(4)
+      .should.equal(Math.sqrt(4))
+    sqrt(1.44)
+      .should.equal(Math.sqrt(1.44))
+    sqrt(1.024)
+      .should.equal(Math.sqrt(1.024))
+    sqrt(0)
+      .should.equal(Math.sqrt(0))
   })
 })
 
