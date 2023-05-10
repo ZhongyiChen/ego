@@ -169,7 +169,7 @@ export function isPrime(value) {
   if (5 !== value % 6 && 1 !== value % 6) return false;
 
   // 一个数若可以进行因式分解，则分解后得到的数中，必有一个小于等于 sqrt(value)
-  const tmp = Math.sqrt(value);
+  const tmp = sqrt(value);
 
   // 在 6 的倍数两侧的整数，也不一定是质数
   for (let i = 5; i <= tmp; i += 6) {
